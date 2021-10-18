@@ -4,7 +4,7 @@ RegisterServerEvent("mdt:hotKeyOpen")
 AddEventHandler("mdt:hotKeyOpen", function()
 	local usource = source
     local xPlayer = QBCore.Functions.GetPlayer(usource)
-    if xPlayer.PlayerData.job.name == 'police' then
+    if xPlayer.PlayerData.job.name == 'police' or xPlayer.PlayerData.job.name == 'fbi' then
     	exports.oxmysql:fetch("SELECT * FROM (SELECT * FROM `mdt_reports` ORDER BY `id` DESC LIMIT 3) sub ORDER BY `id` DESC", {}, function(reports)
     		for r = 1, #reports do
     			reports[r].charges = json.decode(reports[r].charges)
@@ -301,7 +301,7 @@ RegisterServerEvent("mdt:performVehicleSearchInFront")
 AddEventHandler("mdt:performVehicleSearchInFront", function(query)
 	local usource = source
 	local xPlayer = QBCore.Functions.GetPlayer(usource)
-    if xPlayer.PlayerData.job.name == 'police' then
+    if xPlayer.PlayerData.job.name == 'police' or xPlayer.PlayerData.job.name == 'fbi' then
     	exports.oxmysql:fetch("SELECT * FROM (SELECT * FROM `mdt_reports` ORDER BY `id` DESC LIMIT 3) sub ORDER BY `id` DESC", {}, function(reports)
     		for r = 1, #reports do
     			reports[r].charges = json.decode(reports[r].charges)
@@ -417,7 +417,7 @@ AddEventHandler("mdt:newCall", function(details, caller, coords, sendNotificatio
 	for i= 1, #xPlayers do
 		local source = xPlayers[i]
 		local xPlayer = QBCore.Functions.GetPlayer(source)
-		if xPlayer.PlayerData.job.name == 'police' then
+		if xPlayer.PlayerData.job.name == 'police' or xPlayer.PlayerData.job.name == 'fbi' then
 			TriggerClientEvent("mdt:newCall", source, details, caller, coords, call_index)
 			if sendNotification ~= false then
 				TriggerClientEvent("InteractSound_CL:PlayOnOne", source, 'demo', 0.0)
@@ -435,7 +435,7 @@ AddEventHandler("mdt:attachToCall", function(index)
 	for i= 1, #xPlayers do
 		local source = xPlayers[i]
 		local xPlayer = QBCore.Functions.GetPlayer(source)
-		if xPlayer.PlayerData.job.name == 'police' then
+		if xPlayer.PlayerData.job.name == 'police' or xPlayer.PlayerData.job.name == 'fbi' then
 			TriggerClientEvent("mdt:newCallAttach", source, index, charname)
 		end
 	end
@@ -450,7 +450,7 @@ AddEventHandler("mdt:detachFromCall", function(index)
 	for i= 1, #xPlayers do
 		local source = xPlayers[i]
 		local xPlayer = QBCore.Functions.GetPlayer(source)
-		if xPlayer.PlayerData.job.name == 'police' then
+		if xPlayer.PlayerData.job.name == 'police' or xPlayer.PlayerData.job.name == 'fbi' then
 			TriggerClientEvent("mdt:newCallDetach", source, index, charname)
 		end
 	end
@@ -464,7 +464,7 @@ AddEventHandler("mdt:editCall", function(index, details)
 	for i= 1, #xPlayers do
 		local source = xPlayers[i]
 		local xPlayer = QBCore.Functions.GetPlayer(source)
-		if xPlayer.PlayerData.job.name == 'police' then
+		if xPlayer.PlayerData.job.name == 'police' or xPlayer.PlayerData.job.name == 'fbi' then
 			TriggerClientEvent("mdt:editCall", source, index, details)
 		end
 	end
@@ -478,7 +478,7 @@ AddEventHandler("mdt:deleteCall", function(index)
 	for i= 1, #xPlayers do
 		local source = xPlayers[i]
 		local xPlayer = QBCore.Functions.GetPlayer(source)
-		if xPlayer.PlayerData.job.name == 'police' then
+		if xPlayer.PlayerData.job.name == 'police' or xPlayer.PlayerData.job.name == 'fbi' then
 			TriggerClientEvent("mdt:deleteCall", source, index)
 		end
 	end
