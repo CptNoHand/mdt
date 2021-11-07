@@ -209,7 +209,7 @@
                     
                     <br />
 
-                    <div class="left-side" style="max-height: 450px;">
+                    <div class="left-side" style="max-height: 650px;">
                         <h3>NAME</h3>
                         <h4 v-if="offender_selected.firstname"> {{ offender_selected.firstname }} {{ offender_selected.lastname }} </h4>
                         <h4 v-else-if="offender_selected.name == null"> ... </h4>
@@ -218,18 +218,32 @@
                         <h4 v-if="offender_selected.haswarrant" v-bind:class="getClass('important')"> {{ offender_selected.firstname}} {{offender_selected.lastname}} has an active warrant. </h4>
                         <h4 v-if="offender_selected.bail" v-bind:class="getClass('important')"> {{ offender_selected.firstname}} {{offender_selected.lastname}} is on bail. </h4>
                         <h4 v-if="offender_selected.firstname == null"> ... </h4>
-                        <h3>PHONE NUMBER</h3>
+                        <h3>TELEFON</h3>
                         <h4 v-if="offender_selected.phone_number"> {{offender_selected.phone_number}} </h4>
                         <h4 v-else-if="offender_selected.phone_number == null"> ... </h4>
+						
+						
+						 <h3>NATIONALITÄT</h3>
+                        <h4 v-if="offender_selected.nationality"> {{offender_selected.nationality}} </h4>
+                        <h4 v-else-if="offender_selected.nationality == null"> ... </h4>
+						
+						<h3>BLUTGRUPPE</h3>
+                        <h4 v-if="offender_selected.bloodtype"> {{offender_selected.bloodtype}} </h4>
+                        <h4 v-else-if="offender_selected.bloodtype == null"> ... </h4>
+					
+						<h3>FINGERPRINT</h3>
+                        <h4 v-if="offender_selected.fingerprint"> {{offender_selected.fingerprint}} </h4>
+                        <h4 v-else-if="offender_selected.fingerprint == null"> ... </h4>
+						
                         <h3 v-if="offender_selected.firstname == null || offender_selected.licenses">LICENSES</h3>
                         <h4 v-if="offender_selected.firstname == null"> ... </h4>
                         <span v-else-if="offender_selected.licenses" v-for="license in offender_selected.licenses">
                             <h4>{{ license.label }}</h4>
                         </span>
-                        <h3>DATE OF BIRTH</h3>
+                        <h3>GEBURTSDATUM</h3>
                         <h4 v-if="offender_selected.dateofbirth"> {{ offender_selected.dateofbirth }} </h4>
                         <h4 v-else-if="offender_selected.dateofbirth == null"> ... </h4>
-                        <h3 v-if="offender_selected.firstname == null || (offender_selected.convictions != null && Object.keys(offender_selected.convictions).length > 0)">CONVICTIONS</h3>
+                        <h3 v-if="offender_selected.firstname == null || (offender_selected.convictions != null && Object.keys(offender_selected.convictions).length > 0)">VORSTRAFEN</h3>
                         <h4 v-if="offender_selected.firstname == null"> ... </h4>
                         <span v-else-if="offender_selected.convictions" v-for="(value, name) in offender_selected.convictions">
                             <h4>{{ name }} x{{ value }}</h4>
@@ -542,7 +556,7 @@
                     <h2 class="page-title">CALL MONITOR</h2>
                     <h4 v-if="Object.keys(calls).length == 0" style="text-align: center; font-size: 20px; font-weight: bold; margin-top: 20px;">No incoming calls.</h4>
                     <div style="margin: 0 auto; width: 100%; max-height: 90%; overflow-y: auto; margin-top: 20px;" v-if="Object.keys(calls).length > 0">
-                        <table style="margin: 0 auto; width: 90%;">
+                        <table style="margin: 0 auto; width: 95%;">
                             <tr>
                                 <th>#</th>
                                 <th>Caller</th>
