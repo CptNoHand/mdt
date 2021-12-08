@@ -22,4 +22,3 @@ server_scripts {
 }
 
 client_script "cl_mdt.lua"
-shared_script '@qb-core/import.lua'
