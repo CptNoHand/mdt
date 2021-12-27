@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local isVisible = false
 local tabletObject = nil
 local callBip = nil

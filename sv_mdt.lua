@@ -210,9 +210,13 @@ AddEventHandler("mdt:saveOffenderChanges", function(id, changes, identifier)
 		else
 			exports.oxmysql:insert('INSERT INTO `user_mdt` (`char_id`, `notes`, `mugshot_url`, `bail`) VALUES (?, ?, ?, ?)', {id, changes.notes, changes.mugshot_url, changes.bail})
 		end
-		for i = 1, #changes.licenses_removed do
-			local license = changes.licenses_removed[i]
-			exports.oxmysql:execute('DELETE FROM `user_licenses` WHERE `type` = ? AND `owner` = ?', {license.type, identifier})
+		if changes.licenses_removed ~= nil then
+			local player = QBCore.Functions.GetPlayer(usource)
+			local playerLicenses = player.PlayerData.metadata["licences"]
+			for i = 1, #changes.licenses_removed do
+				playerLicenses[changes.licenses_removed[i]["type"]:sub(1, -9)] = false
+			end
+			player.Functions.SetMetaData("licences", playerLicenses)
 		end
 
 		if changes.convictions ~= nil then
@@ -512,14 +516,8 @@ function GetLicenses(identifier, cb)
 
 		for type,_ in pairs(playerlicenses) do
 			if playerlicenses[type] then
-				local licenseType = nil
-				local label = nil
-
-				if type == "driver" then
-					licenseType = "driver_license" label = "Drivers License"
-				elseif type == "weapon" then
-					licenseType = "weapon_license" label = "Weapons License"
-				end
+				local licenseType = type .. "_license"
+				local label = (type:gsub("^%l", string.upper)) .. "s License"
 
 				table.insert(licenses, {
 					type = licenseType,
