@@ -157,6 +157,7 @@
                                 </h4>
                             </span>
                             <h4 v-if="report_new.recommended_fine > 0">Fine: ${{report_new.recommended_fine}}</h4>
+                            <h4 v-if="report_new.recommended_sentence > 0">Sentence: {{report_new.recommended_sentence}} months</h4>
                             <br />
                             <button v-if="report_new.char_id && report_new.incident && report_new.title" v-on:click="SubmitNewReport()" type="button" style="margin-top: 20px">SUBMIT REPORT</button>
                             <button v-if="report_new.focus == 'charges'" v-on:click="report_new.focus = 'name'" type="button" style="margin-top: 20px">SEARCH OFFENDER</button>
